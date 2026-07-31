@@ -84,7 +84,7 @@ st.sidebar.markdown("""
 """, unsafe_allow_html=True)
 
 page = st.sidebar.radio(
-    "",
+    "Navigation Menu",
     ["Enroll Student", "Take Attendance", "Attendance Reports"],
     label_visibility="collapsed"
 )
@@ -105,7 +105,7 @@ if page == "Enroll Student":
         roll_number = st.text_input("Roll Number / ID", placeholder="e.g. CS2026-08")
         simulate_enroll = st.checkbox("Simulate Enrollment (Use Mock Poses & Encoding)", value=False)
         
-        start_btn = st.button("Start Enrollment Process", use_container_width=True)
+        start_btn = st.button("Start Enrollment Process", width='stretch')
         
     with col_status:
         st.subheader("Enrollment Status")
@@ -212,7 +212,7 @@ if page == "Enroll Student":
                                                 (15, h - 18), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 1, cv2.LINE_AA)
                             
                             # Render Frame in Streamlit
-                            video_box.image(cv2.cvtColor(display_frame, cv2.COLOR_BGR2RGB), channels="RGB", use_container_width=True)
+                            video_box.image(cv2.cvtColor(display_frame, cv2.COLOR_BGR2RGB), channels="RGB", width='stretch')
                             time.sleep(0.03)
                             
                         cap.release()
@@ -255,19 +255,19 @@ elif page == "Take Attendance":
         present_list = [r for r in records if r['status'] == 'Present']
         if present_list:
             df = pd.DataFrame(present_list)[['name', 'roll_number', 'time']]
-            table_placeholder.dataframe(df, use_container_width=True)
+            table_placeholder.dataframe(df, width='stretch')
         else:
             table_placeholder.info("No students marked present today yet.")
             
     with col_actions:
         st.subheader("Controls")
         if not st.session_state.session_active:
-            start_session_btn = st.button("Start Session", use_container_width=True, type="primary")
+            start_session_btn = st.button("Start Session", width='stretch', type="primary")
             if start_session_btn:
                 st.session_state.session_active = True
                 st.rerun()
         else:
-            end_session_btn = st.button("End Session & Finalize", use_container_width=True, type="secondary")
+            end_session_btn = st.button("End Session & Finalize", width='stretch', type="secondary")
             if end_session_btn:
                 st.session_state.session_active = False
                 from src.attendance import mark_absent_students
@@ -311,7 +311,7 @@ elif page == "Take Attendance":
                 # Bounding box
                 draw.rectangle([180, 100, 460, 380], outline=(0, 255, 0), width=4)
                 draw.text((190, 350), f"SIMULATING: {name} (98%)", fill=(255, 255, 255))
-                video_feed.image(img, use_container_width=True)
+                video_feed.image(img, width='stretch')
                 
                 # Handle Database logs
                 now = time.time()
@@ -415,7 +415,7 @@ elif page == "Take Attendance":
                                         cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 255, 255), 1, cv2.LINE_AA)
                                         
                         # Update video element
-                        video_feed.image(cv2.cvtColor(display_frame, cv2.COLOR_BGR2RGB), channels="RGB", use_container_width=True)
+                        video_feed.image(cv2.cvtColor(display_frame, cv2.COLOR_BGR2RGB), channels="RGB", width='stretch')
                         show_marked_table()
                         time.sleep(0.03)
                         
@@ -449,7 +449,7 @@ elif page == "Attendance Reports":
             st.markdown(f'<div class="metric-card"><p style="margin:0; font-size: 0.9rem; color: #555;">Total Class Strength</p><h2 style="margin:0; font-size:2.2rem; color:#1f4068;">{total_count}</h2></div>', unsafe_allow_html=True)
             
         st.write("### Today's Roll List")
-        st.dataframe(df_display, use_container_width=True)
+        st.dataframe(df_display, width='stretch')
         
         # Download export data
         csv_data = df_display.to_csv(index=False).encode('utf-8')

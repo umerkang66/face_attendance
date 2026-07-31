@@ -4,6 +4,7 @@ streamlit
 pandas
 numpy
 Pillow
+setuptools<81
 # face_recognition and dlib are installed separately — see README/setup notes
 # sqlite3 is built-in to the Python standard library, so it is not listed here
 
