@@ -1,0 +1,8 @@
+# Core dependencies for Face Recognition Attendance Management System
+opencv-python
+face_recognition
+streamlit
+pandas
+numpy
+Pillow
+# sqlite3 is built-in to the Python standard library, so it is not listed here
