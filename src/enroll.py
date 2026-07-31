@@ -4,7 +4,6 @@ import time
 import argparse
 from pathlib import Path
 import numpy as np
-import cv2
 
 # Import modules from src
 sys.path.append(str(Path(__file__).resolve().parent.parent))
@@ -38,23 +37,35 @@ def simulate_enrollment(name: str, roll_number: str, student_dir: Path) -> bool:
     print(f"\n[SIMULATION] Starting mock enrollment for {name} (Roll: {roll_number})...")
     student_dir.mkdir(parents=True, exist_ok=True)
     
-    # Save 10 placeholder images with labels
+    # Save 10 placeholder images with labels using PIL (since cv2 may not be installed yet)
+    try:
+        from PIL import Image, ImageDraw
+        has_pil = True
+    except ImportError:
+        has_pil = False
+
     for i in range(1, 11):
         img_path = student_dir / f"img_{i}.jpg"
-        # Create a simple color block image
-        img = np.zeros((300, 300, 3), dtype=np.uint8)
-        img[:] = (180, 150, 120)  # Muted brown/gray background
+        if has_pil:
+            # Create a simple color block image
+            img = Image.new("RGB", (300, 300), color=(180, 150, 120))
+            draw = ImageDraw.Draw(img)
+            # Draw a face outline
+            draw.ellipse([90, 70, 210, 190], outline=(255, 255, 255), width=2)
+            # eyes
+            draw.ellipse([120, 110, 130, 120], fill=(255, 255, 255))
+            draw.ellipse([170, 110, 180, 120], fill=(255, 255, 255))
+            # smile
+            draw.arc([125, 140, 175, 170], 0, 180, fill=(255, 255, 255), width=2)
+            # labels
+            draw.text((30, 230), f"Simulated Face #{i}", fill=(255, 255, 255))
+            draw.text((30, 255), f"Roll: {roll_number}", fill=(0, 255, 255))
+            img.save(img_path)
+        else:
+            # Fallback to writing empty file
+            with open(img_path, "wb") as f:
+                f.write(b"Simulated JPG data")
         
-        # Draw some fake face outlines and text
-        cv2.circle(img, (150, 130), 60, (255, 255, 255), 2)  # head outline
-        cv2.circle(img, (130, 120), 8, (255, 255, 255), -1)   # left eye
-        cv2.circle(img, (170, 120), 8, (255, 255, 255), -1)   # right eye
-        cv2.ellipse(img, (150, 160), (25, 10), 0, 0, 180, (255, 255, 255), 2)  # smile
-        
-        cv2.putText(img, f"Simulated Face #{i}", (30, 240), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-        cv2.putText(img, f"Roll: {roll_number}", (30, 265), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 1, cv2.LINE_AA)
-        
-        cv2.imwrite(str(img_path), img)
         print(f"  -> Saved placeholder: dataset/{student_dir.name}/{img_path.name}")
         time.sleep(0.05)
         
@@ -88,7 +99,14 @@ def enroll_student(name: str, roll_number: str, simulate: bool = False) -> bool:
     if simulate:
         return simulate_enrollment(name, roll_number, student_dir)
         
-    # Lazy import of face_recognition to allow simulation mode even if library is not installed
+    # Lazy import of cv2 and face_recognition for active camera mode
+    try:
+        import cv2
+    except ImportError:
+        print("\n[ERROR] 'opencv-python' (cv2) library is not installed.")
+        print("Please install requirements or run with --simulate to mock enrollment.")
+        sys.exit(1)
+        
     try:
         import face_recognition
     except ImportError:
@@ -235,7 +253,7 @@ def cleanup_folder(folder_path: Path):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Enroll student into Face Recognition Database.")
     parser.add_argument("--simulate", action="store_true", help="Simulate enrollment using dummy data without webcam.")
-    args = parser.parse_argument_group().parser.parse_args()  # Simple parsing
+    args = parser.parse_args()
     
     print("=== Student Face Enrollment Module ===")
     name_input = input("Enter Student Full Name: ").strip()

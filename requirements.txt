@@ -1,8 +1,15 @@
 # Core dependencies for Face Recognition Attendance Management System
 opencv-python
-face_recognition
 streamlit
 pandas
 numpy
 Pillow
+# face_recognition and dlib are installed separately — see README/setup notes
 # sqlite3 is built-in to the Python standard library, so it is not listed here
+
+
+# commands:
+# pip install -r requirements.txt
+# pip install dlib-bin
+# pip install face_recognition --no-deps
+# python -m streamlit run app/main.py
