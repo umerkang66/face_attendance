@@ -12,6 +12,8 @@ The system processes image frames from video inputs or raw directories to genera
 [Camera / Directory] ──> [HOG Face Detection] ──> [dlib 128D Embedding] ──> [Euclidean Distance Match] ──> [Debounce Check] ──> [Database Write]
 ```
 
+![System Architecture Diagram](images/architecture_diagram.jpg)
+
 ### Stage 1: Input Acquisition
 - Real-time video frames are acquired using OpenCV via local webcam indices.
 - Alternatively, static JPEG/PNG files are loaded from designated directories for batch processing.

@@ -30,6 +30,8 @@ face_attendance/
 └── README.md
 ```
 
+![System Component Flow Diagram](images/component_flow.jpg)
+
 ---
 
 ## 2. Global Configuration Reference
