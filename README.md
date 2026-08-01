@@ -18,7 +18,7 @@ The Face Recognition Attendance Management System is a computer vision-based bio
 
 ## Core Capabilities
 
-- **Real-Time Biometric Identification:** Employs the Histogram of Oriented Gradients (HOG) model for fast face localization and real-time biometric verification on CPU architectures.
+- **Real-Time Biometric Identification:** Employs the Histogram of Oriented Gradients (HOG) model for fast face localization and real-time biometric verification on CPU architecture.
 - **Multi-Pose Averaging:** Computes a mathematical average of 10 facial poses during enrollment to maximize verification stability under varying expressions and angles.
 - **Debounced Logging:** Incorporates a 3-second debounce filter to avoid duplicate logs in the database.
 - **Standalone Simulation Framework:** Implements mock video inputs and random vector matrices to allow testing on headless systems or setups without camera peripherals.
