@@ -4,8 +4,6 @@ pandas
 numpy
 Pillow
 setuptools<81
-dlib-bin
-face_recognition
 opencv-python-headless
 
 # face_recognition and dlib are installed separately — see README/setup notes
@@ -16,4 +14,5 @@ opencv-python-headless
 # pip install -r requirements.txt
 # pip install dlib-bin
 # pip install face_recognition --no-deps
+# pip install face_recognition_models --no-deps
 # python -m streamlit run app/main.py
