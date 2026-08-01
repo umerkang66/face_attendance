@@ -6,13 +6,14 @@ The Face Recognition Attendance Management System is a computer vision-based bio
 
 ## Technical Stack
 
-| Component | Technology | Description |
-| :--- | :--- | :--- |
-| Programming Language | Python 3.8+ | Core application runtime |
-| Web Interface | Streamlit | Control panel, visual dashboard, and enrollment UI |
-| Computer Vision | OpenCV | Image capture, frame preprocessing, and camera interfacing |
-| Face Recognition | dlib / face_recognition | Face localization (HOG model) and 128-dimensional embedding extraction |
-| Database Engine | SQLite3 | Local storage of student profiles and attendance records |
+| Component            | Technology              | Description                                                                                                                           |
+| :------------------- | :---------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
+| Programming Language | Python 3.8+             | Core application runtime                                                                                                              |
+| Web Interface        | Streamlit               | Control panel, visual dashboard, and enrollment UI                                                                                    |
+| Computer Vision      | OpenCV                  | Image capture, frame preprocessing, and camera interfacing                                                                            |
+| Face Recognition     | dlib / face_recognition | Face localization (HOG model) and 128-dimensional embedding extraction                                                                |
+| Database Engine      | SQLite3                 | Local storage of student profiles and attendance records                                                                              |
+| System Packages      | APT (`package.txt`)     | OS-level dependencies (`cmake`, `g++`, `libgl1-mesa-glx`, `libglib2.0-0`) for C++ compilation and OpenCV support on Linux (Streamlit) |
 
 ---
 
@@ -28,12 +29,14 @@ The Face Recognition Attendance Management System is a computer vision-based bio
 ## Quick Start
 
 ### 1. Configure the Virtual Environment
+
 ```powershell
 python -m venv venv
 .\venv\Scripts\Activate.ps1
 ```
 
 ### 2. Install Project Dependencies
+
 ```powershell
 pip install -r requirements.txt
 pip install dlib-bin
@@ -41,11 +44,13 @@ pip install face_recognition --no-deps
 ```
 
 ### 3. Initialize the Database Schema
+
 ```powershell
 python -m src.database
 ```
 
 ### 4. Launch the Web Control Panel
+
 ```powershell
 python -m streamlit run app/main.py
 ```
