@@ -51,6 +51,7 @@ python -m venv venv
 pip install -r requirements.txt
 pip install dlib-bin
 pip install face_recognition --no-deps
+pip install face_recognition_models --no-deps
 ```
 
 ### 3. Initialize the Database Schema

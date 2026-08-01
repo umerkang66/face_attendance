@@ -56,6 +56,7 @@ Install the pre-compiled `dlib` binary and the `face_recognition` package withou
 ```powershell
 pip install dlib-bin
 pip install face_recognition --no-deps
+pip install face_recognition_models --no-deps
 ```
 
 ### Step 6: Initialize Database Schema
