@@ -1,5 +1,15 @@
 # Face Recognition Attendance Management System
 
+![App Screenshot](docs/images/app.png)
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white)
+![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white)
+![dlib](https://img.shields.io/badge/dlib-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white)
+
 The Face Recognition Attendance Management System is a computer vision-based biometric tracking application. It automates attendance registration by extracting 128-dimensional facial embeddings using a dlib-based deep neural network, managing student metadata in a local SQLite database, and providing a web control panel interface built with Streamlit.
 
 ---
