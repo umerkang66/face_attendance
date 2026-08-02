@@ -7,7 +7,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 from src.config import CAMERA_INDEX
 from src.database import get_all_students
-from src.recognizer import recognize_faces, load_known_encodings
+from src.recognizer import recognize_faces, load_known_encodings, draw_face_label
 
 def run_live_recognition(simulate: bool = False):
     """
@@ -71,23 +71,10 @@ def run_live_recognition(simulate: bool = False):
             
             # Choose color: Green for known, Red for unknown faces
             color = (0, 255, 0) if name != "Unknown" else (0, 0, 255)
+            label = f"{name} ({confidence * 100:.0f}%)" if name != "Unknown" else "Unknown"
+            top_badge = f"Roll: {roll_number}" if (name != "Unknown" and roll_number) else None
             
-            # Draw face rectangle
-            cv2.rectangle(frame, (left, top), (right, bottom), color, 2)
-            
-            # Draw header bar for Name & Confidence at the bottom
-            cv2.rectangle(frame, (left, bottom - 22), (right, bottom), color, cv2.FILLED)
-            label = f"{name} ({confidence * 100:.0f}%)"
-            cv2.putText(frame, label, (left + 6, bottom - 6), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 255, 255), 1, cv2.LINE_AA)
-            
-            # Draw roll number above the face box if recognized
-            if roll_number:
-                # Text shadow effect for visibility
-                cv2.putText(frame, f"Roll: {roll_number}", (left, top - 8), 
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 0), 2, cv2.LINE_AA)
-                cv2.putText(frame, f"Roll: {roll_number}", (left, top - 8), 
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 1, cv2.LINE_AA)
+            draw_face_label(frame, (top, right, bottom, left), label, color=color, top_badge=top_badge)
                 
         # Show number of faces in top corner
         status_text = f"Faces in frame: {len(results)}"

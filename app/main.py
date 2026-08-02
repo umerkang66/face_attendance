@@ -339,7 +339,7 @@ elif page == "Take Attendance":
                 import cv2
                 import numpy as np
                 import face_recognition
-                from src.recognizer import recognize_faces
+                from src.recognizer import recognize_faces, draw_face_label
                 from src.attendance import write_log
             except ImportError as e:
                 st.error(f"Required modules missing: {e}. Please run in 'Simulate' mode.")
@@ -398,7 +398,7 @@ elif page == "Take Attendance":
                                 if (now_time - marked_time) < confirmation_duration:
                                     is_newly_marked = True
                                     
-                            # Styling box color
+                            # Styling box color & text
                             if name == "Unknown":
                                 color = (0, 0, 255)
                                 label_text = "Unknown"
@@ -409,10 +409,8 @@ elif page == "Take Attendance":
                                 color = (255, 255, 0)
                                 label_text = f"Present: {name} ({confidence*100:.0f}%)"
                                 
-                            cv2.rectangle(display_frame, (left, top), (right, bottom), color, 2)
-                            cv2.rectangle(display_frame, (left, bottom - 22), (right, bottom), color, cv2.FILLED)
-                            cv2.putText(display_frame, label_text, (left + 6, bottom - 6), 
-                                        cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 255, 255), 1, cv2.LINE_AA)
+                            top_badge = f"Roll: {roll_number}" if (name != "Unknown" and roll_number) else None
+                            draw_face_label(display_frame, (top, right, bottom, left), label_text, color=color, top_badge=top_badge)
                                         
                         # Update video element
                         video_feed.image(cv2.cvtColor(display_frame, cv2.COLOR_BGR2RGB), channels="RGB", width='stretch')

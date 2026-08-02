@@ -14,7 +14,7 @@ from src.database import (
     already_marked_today, 
     get_attendance_by_date
 )
-from src.recognizer import recognize_faces, load_known_encodings
+from src.recognizer import recognize_faces, load_known_encodings, draw_face_label
 
 def write_log(message: str):
     """Writes a timestamped message to the attendance log file."""
@@ -175,19 +175,11 @@ def run_attendance_session(simulate: bool = False):
                 color = (255, 255, 0)  # Cyan/Yellow for already checked
                 label_text = f"Present: {name} ({confidence*100:.0f}%)"
                 
-            # Draw Face rectangle
-            cv2.rectangle(frame, (left, top), (right, bottom), color, 2)
-            
-            # Draw Bottom Label Bar
-            cv2.rectangle(frame, (left, bottom - 22), (right, bottom), color, cv2.FILLED)
-            cv2.putText(frame, label_text, (left + 6, bottom - 6), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 255, 255), 1, cv2.LINE_AA)
-            
-            # Show additional checked badge top-left of box
+            top_badge = None
             if name != "Unknown":
-                badge = "Marked" if not is_newly_marked else "NEW ✓"
-                cv2.putText(frame, badge, (left, top - 8), 
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 1, cv2.LINE_AA)
+                top_badge = "Marked" if not is_newly_marked else "NEW ✓"
+                
+            draw_face_label(frame, (top, right, bottom, left), label_text, color=color, top_badge=top_badge)
                 
         # Draw session header info
         cv2.putText(frame, f"Session Date: {today_date} | Press 'e' or 'q' to end", 

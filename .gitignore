@@ -5,3 +5,8 @@ logs/*
 *.db
 .vscode
 dataset/*
+*.tex
+*.log
+*.out
+*.aux
+*.pdf
