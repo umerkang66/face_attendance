@@ -26,7 +26,6 @@ face_attendance/
 │   ├── live_recognition_test.py
 │   └── recognizer.py
 ├── .gitignore
-├── package.txt
 ├── requirements.txt
 └── README.md
 ```
@@ -38,7 +37,6 @@ face_attendance/
 | File | Type | Description |
 | :--- | :--- | :--- |
 | [`requirements.txt`](../requirements.txt) | Python Package Manifest | Defines Python package requirements (`streamlit`, `opencv-python-headless`, `dlib-bin`, `face_recognition`, `pandas`, `numpy`, `Pillow`). |
-| [`package.txt`](../package.txt) | Linux APT Package Manifest | Defines system-level Linux dependencies (`cmake`, `g++`, `libgl1-mesa-glx`, `libglib2.0-0`) required for C++ compilation (`dlib`) and OpenCV graphics runtime on Linux / Docker / Streamlit Cloud. |
 
 ---
 

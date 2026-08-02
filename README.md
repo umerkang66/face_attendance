@@ -23,7 +23,6 @@ The Face Recognition Attendance Management System is a computer vision-based bio
 | Computer Vision      | OpenCV                  | Image capture, frame preprocessing, and camera interfacing                                                                            |
 | Face Recognition     | dlib / face_recognition | Face localization (HOG model) and 128-dimensional embedding extraction                                                                |
 | Database Engine      | SQLite3                 | Local storage of student profiles and attendance records                                                                              |
-| System Packages      | APT (`package.txt`)     | OS-level dependencies (`cmake`, `g++`, `libgl1-mesa-glx`, `libglib2.0-0`) for C++ compilation and OpenCV support on Linux (Streamlit) |
 
 ---
 

@@ -28,11 +28,10 @@ This document lists common issues, build errors, hardware difficulties, and data
 
 - **Symptoms:** On Linux servers, Docker, or Streamlit Cloud, OpenCV throws `libGL.so.1` or `libglib-2.0.so.0` errors, or `dlib` build fails due to missing `cmake`/`g++`.
 - **Root Cause:** Operating system lacks necessary C++ build tools and OpenGL runtime packages.
-- **Resolution:** Install the APT packages listed in [`package.txt`](../package.txt):
+- **Resolution:** Install the required system packages directly:
   ```bash
-  sudo apt-get update && sudo apt-get install -y $(cat package.txt)
+  sudo apt-get update && sudo apt-get install -y cmake g++ libgl1-mesa-glx libglib2.0-0
   ```
-  _(Note: Streamlit Community Cloud reads `package.txt` automatically during deployment)._
 
 ---
 
